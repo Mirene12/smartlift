@@ -8,6 +8,13 @@ export default function Home() {
   const [requestedFloor, setRequestedFloor] = useState("");
   const [message, setMessage] = useState("");
   const [targetFloor, setTargetFloor] = useState<number | null>(null);
+  const eta =
+    targetFloor === null
+      ? "--"
+      : Math.abs(targetFloor - floor);
+  const hasArrived =
+    targetFloor !== null &&
+    floor === targetFloor;
 
 useEffect(() => {
   const interval = setInterval(() => {
@@ -36,27 +43,6 @@ useEffect(() => {
   return () => clearInterval(interval);
 
 }, [targetFloor])
-  /*useEffect(() => {
-    const interval = setInterval(() => {
-      setFloor((currentFloor) => {
-        if (currentFloor >= 10) {
-          setDirection("Bajando");
-          return currentFloor - 1;
-        }
-
-        if (currentFloor <= 1) {
-          setDirection("Subiendo");
-          return currentFloor + 1;
-        }
-
-        return direction === "Subiendo"
-          ? currentFloor + 1
-          : currentFloor - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [direction]);*/
 
   return (
     <main
@@ -99,6 +85,14 @@ useEffect(() => {
       Llamar ascensor
       </button>
       <p>Destino: {targetFloor ?? "--"}</p>
+
+      <p>ETA: {eta} segundos</p>
+
+      {hasArrived && (
+  <p style={{ color: "green" }}>
+    ✅ Ascensor ha llegado
+  </p>
+)}
     </main>
   );
 }
