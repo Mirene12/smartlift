@@ -46,53 +46,63 @@ useEffect(() => {
 
   return (
     <main
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "100vh",
-        gap: "20px",
-      }}
-    >
-      <h1>SMARTLIFT</h1>
-
-      <h2>Ascensor A</h2>
-
-      <p>Planta actual: {floor}</p>
-
-      <p>Estado: {direction}</p>
-
-      <input
-      type="number"
-      placeholder="Introduce tu planta"
-      value={requestedFloor}
-      onChange={(e) => setRequestedFloor(e.target.value)}
-      style={{
-        padding: "8px",
-        fontSize: "16px",
-      }}
-      />
-      <button
-      onClick={() => {
-      const selectedFloor = Number(requestedFloor);
-
-      setTargetFloor(selectedFloor);
-
-      setMessage(`Ascensor solicitado a la planta ${selectedFloor}`);
-      }}
+    style={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      minHeight: "100vh",
+      backgroundColor: "#f3f4f6",
+    }}
+  >
+      <div
+        style={{
+          backgroundColor: "white",
+          padding: "40px",
+          borderRadius: "20px",
+          boxShadow: "0 8px 20px rgba(0,0,0,0.1)",
+          width: "400px",
+          textAlign: "center",
+        }}
       >
-      Llamar ascensor
-      </button>
-      <p>Destino: {targetFloor ?? "--"}</p>
+        <h1>SMARTLIFT</h1>
 
-      <p>ETA: {eta} segundos</p>
+        <h2>Ascensor A</h2>
 
-      {hasArrived && (
-  <p style={{ color: "green" }}>
-    ✅ Ascensor ha llegado
-  </p>
-)}
+        <p>Planta actual: {floor}</p>
+
+        <p>Estado: {direction}</p>
+
+        <input
+        type="number"
+        placeholder="Introduce tu planta"
+        value={requestedFloor}
+        onChange={(e) => setRequestedFloor(e.target.value)}
+        style={{
+          padding: "8px",
+          fontSize: "16px",
+        }}
+        />
+        <button
+        onClick={() => {
+        const selectedFloor = Number(requestedFloor);
+
+        setTargetFloor(selectedFloor);
+
+        setMessage(`Ascensor solicitado a la planta ${selectedFloor}`);
+        }}
+        >
+        Llamar ascensor
+        </button>
+        <p>Destino: {targetFloor ?? "--"}</p>
+
+        <p>ETA: {eta} segundos</p>
+
+        {hasArrived && (
+        <p style={{ color: "green" }}>
+          ✅ Ascensor ha llegado
+        </p>
+        )}
+      </div>
     </main>
   );
 }
