@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [floor, setFloor] = useState(1);
+  const [floor, setFloor] = useState(0);
   const [direction, setDirection] = useState("Subiendo");
   const [requestedFloor, setRequestedFloor] = useState("");
   const [message, setMessage] = useState("");
@@ -43,7 +43,7 @@ useEffect(() => {
   return () => clearInterval(interval);
 
 }, [targetFloor])
-const floors = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+const floors = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0];
 
   return (
     <main
@@ -65,7 +65,29 @@ const floors = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
           textAlign: "center",
         }}
       >
-        <h1>SMARTLIFT</h1>
+        <div>
+          <h1
+            style={{
+              color: "#2563eb",
+              fontSize: "42px",
+              fontWeight: "bold",
+              marginBottom: "8px",
+            }}
+          >
+            🛗 SmartLift
+          </h1>
+
+          <p
+            style={{
+              fontStyle: "italic",
+              color: "#666",
+              marginTop: "0",
+              marginBottom: "30px",
+            }}
+          >
+            Elevator Experience Platform
+          </p>
+        </div>
 
         <h2>Ascensor A</h2>
         <div
@@ -100,20 +122,37 @@ const floors = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
           ))}
         </div>
 
-        <p>Planta actual: {floor}</p>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "8px",
+            width: "100%",
+          }}
+        >
+          <label
+            style={{
+              fontWeight: "bold",
+            }}
+          >
+            Tu planta
+          </label>
 
-        <p>Estado: {direction}</p>
+          <input
+            type="number"
+            placeholder="Ej. 5"
+            value={requestedFloor}
+            onChange={(e) => setRequestedFloor(e.target.value)}
+            style={{
+              padding: "10px",
+              fontSize: "16px",
+              borderRadius: "8px",
+              border: "1px solid #ccc",
+              textAlign: "center",
+            }}
+          />
+        </div>
 
-        <input
-        type="number"
-        placeholder="Introduce tu planta"
-        value={requestedFloor}
-        onChange={(e) => setRequestedFloor(e.target.value)}
-        style={{
-          padding: "8px",
-          fontSize: "16px",
-        }}
-        />
         <button
         onClick={() => {
         const selectedFloor = Number(requestedFloor);
@@ -125,15 +164,36 @@ const floors = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
         >
         Llamar ascensor
         </button>
-        <p>Destino: {targetFloor ?? "--"}</p>
 
-        <p>ETA: {eta} segundos</p>
+        <p>Estado: {direction}</p>
+
+        {targetFloor !== null && !hasArrived && (
+        <>
+          <p>
+            🟦 Ascensor A asignado
+          </p>
+
+          <p>
+            🚀 ETA: {eta} segundos
+          </p>
+
+          <p>
+            📍 Destino: Planta {targetFloor}
+          </p>
+        </>
+      )}
 
         {hasArrived && (
-        <p style={{ color: "green" }}>
-          ✅ Ascensor ha llegado
+        <p
+          style={{
+            color: "#22c55e",
+            fontWeight: "bold",
+          }}
+        >
+          ✅ Ascensor disponible en tu planta.
         </p>
         )}
+
       </div>
     </main>
   );
