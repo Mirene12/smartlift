@@ -43,6 +43,7 @@ useEffect(() => {
   return () => clearInterval(interval);
 
 }, [targetFloor])
+const floors = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
 
   return (
     <main
@@ -67,6 +68,37 @@ useEffect(() => {
         <h1>SMARTLIFT</h1>
 
         <h2>Ascensor A</h2>
+        <div
+          style={{
+            border: "1px solid #ddd",
+            padding: "10px",
+            borderRadius: "10px",
+            marginBottom: "20px",
+          }}
+        >
+          {floors.map((buildingFloor) => (
+            <div
+              key={buildingFloor}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "120px",
+                backgroundColor:
+                  floor === buildingFloor
+                    ? "#dbeafe"
+                    : "transparent",
+                borderRadius: "6px",
+                padding: "2px",
+              }}
+            >
+              <span>{buildingFloor}</span>
+
+              <span>
+                {floor === buildingFloor ? "🛗" : ""}
+              </span>
+            </div>
+          ))}
+        </div>
 
         <p>Planta actual: {floor}</p>
 
